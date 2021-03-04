@@ -5,8 +5,8 @@
 ### Requirements
 - `Ubuntu 16.04`
 - `Anaconda` with `python=3.6`
-- `pytorch>=1.3`
-- `torchvision` with  `pillow<7`
+- `pytorch>=1.3` (I used 1.4 since no 1.3 currently(not working on pytorch 1.5))
+- `torchvision` with  `pillow<7` (intall this manually ahead of time)
 - `cuda=10.1`
 - others: `pip install termcolor opencv-python tensorboard h5py easydict`
 - note
