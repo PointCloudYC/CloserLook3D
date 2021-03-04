@@ -21,7 +21,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.nn.parallel import DistributedDataParallel
 
 import datasets.data_utils as d_utils
-from models import build_scene_segmentation
+from models import build_scene_segmentation # models/build.py
 from datasets import S3DISSeg
 from utils.util import AverageMeter, s3dis_metrics, sub_s3dis_metrics, s3dis_part_metrics
 from utils.lr_scheduler import get_scheduler

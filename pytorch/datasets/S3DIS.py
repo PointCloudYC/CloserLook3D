@@ -226,7 +226,7 @@ class S3DISSeg(data.Dataset):
             for ep in range(self.num_epochs):
                 for st in range(self.num_steps):
                     cloud_ind = int(np.argmin(min_potentials))
-                    point_ind = np.argmin(potentials[cloud_ind])
+                    point_ind = np.argmin(potentials[cloud_ind]) # pt index w. min possib. in the cloud w. min possib.
                     print(f"[{ep}/{st}]: {cloud_ind}/{point_ind}")
                     self.cloud_inds.append(cloud_ind)
                     self.point_inds.append(point_ind)

@@ -98,7 +98,7 @@ class ResNet(nn.Module):
         self.btnk1 = Bottleneck(width // 2, width, bottleneck_ratio, radius, nsamples[0], config)
 
         self.layer1 = MultiInputSequential()
-        sampleDl *= 2
+        sampleDl *= 2 # relevant to strided conv
         self.layer1.add_module("strided_bottleneck",
                                Bottleneck(width, 2 * width, bottleneck_ratio, radius, nsamples[0], config,
                                           downsample=True, sampleDl=sampleDl, npoint=npoints[0]))

@@ -8,7 +8,16 @@ class MaskedGlobalAvgPool1d(nn.Module):
         super(MaskedGlobalAvgPool1d, self).__init__()
 
     def forward(self, mask, features):
-        out = features.sum(-1)
+        """[added by yc]
+
+        Args:
+            mask ([type]): mask, BxC'xN, each value is 0 or 1.
+            features ([type]): BxC'xN
+
+        Returns:
+            [type]: [description]
+        """
+        out = features.sum(-1) 
         pcl_num = mask.sum(-1)
         out /= pcl_num[:, None]
         return out
