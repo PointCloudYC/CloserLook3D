@@ -148,9 +148,12 @@ class S3DISSeg(data.Dataset):
                                     raise ValueError('Unknown object name: ' + str(tmp))
                                 # Read object points and colors
                                 with open(object_file, 'r') as f:
-                                    object_data = np.array([[float(x) for x in line.split()] for line in f])
-                                # Stack all data
-                                cloud_points = np.vstack((cloud_points, object_data[:, 0:3].astype(np.float32)))
+                                    object_data = np.array([[float(x) for x in line.split()] for line in f], dtype="object") # Stack all data
+                                try:
+                                    cloud_points = np.vstack((cloud_points, object_data[:, 0:3].astype(np.float32)))
+                                except Exception as e:
+                                    print(object_file)
+                                    raise e
                                 cloud_colors = np.vstack((cloud_colors, object_data[:, 3:6].astype(np.uint8)))
                                 object_classes = np.full((object_data.shape[0], 1), object_class, dtype=np.int32)
                                 cloud_classes = np.vstack((cloud_classes, object_classes))
