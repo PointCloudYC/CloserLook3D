@@ -24,8 +24,7 @@ import datasets.data_utils as d_utils
 from models import build_scene_segmentation
 # from datasets import S3DISSeg
 from datasets import PSNetSeg
-from utils.util import AverageMeter, s3dis_metrics, sub_s3dis_metrics
-from utils.metrics import classification_metrics
+from utils.util import AverageMeter, s3dis_metrics, sub_s3dis_metrics, classification_metrics
 from utils.logger import setup_logger
 from utils.config import config, update_config
 

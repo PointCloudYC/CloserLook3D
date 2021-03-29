@@ -26,6 +26,19 @@ class AverageMeter(object):
         self.count += n
         self.avg = self.sum / self.count
 
+def classification_metrics(preds, targets, num_classes):
+    seen_class = [0.0 for _ in range(num_classes)]
+    correct_class = [0.0 for _ in range(num_classes)]
+    preds = np.argmax(preds, -1)
+    correct = np.sum(preds == targets)
+    seen = preds.shape[0]
+    for l in range(num_classes):
+        seen_class[l] += np.sum(targets == l)
+        correct_class[l] += (np.sum((preds == l) & (targets == l)))
+    acc = 1.0 * correct / seen
+    avg_class_acc = np.mean(np.array(correct_class) / np.array(seen_class))
+    return acc, avg_class_acc
+
 
 def accuracy(output, target, topk=(1,)):
     """Computes the accuracy over the k top predictions for the specified values of k"""
