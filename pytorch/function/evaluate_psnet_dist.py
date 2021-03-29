@@ -25,6 +25,7 @@ from models import build_scene_segmentation
 # from datasets import S3DISSeg
 from datasets import PSNetSeg
 from utils.util import AverageMeter, s3dis_metrics, sub_s3dis_metrics
+from utils.metrics import classification_metrics
 from utils.logger import setup_logger
 from utils.config import config, update_config
 
@@ -217,6 +218,12 @@ def validate(epoch, test_loader, model, criterion, config, num_votes=10):
             IoUs, mIoU = s3dis_metrics(config.num_classes, vote_logits, validation_proj, validation_labels)
             logger.info(f'E{epoch} V{v} * mIoU {mIoU:.3%}')
             logger.info(f'E{epoch} V{v}  * msIoU {IoUs}')
+
+            # compute overall accuracy 
+            # acc, avg_class_acc = classification_metrics(val_preds, val_targets, test_loader.dataset.num_classes)
+            acc, avg_class_acc = classification_metrics(np.argmax(vote_logits,axis=0), validation_labels, test_loader.dataset.num_classes)
+            logger.info(f'E{epoch} * Acc {acc:.3%} CAcc {avg_class_acc:.3%}')
+
     return mIoU
 
 
@@ -240,4 +247,6 @@ if __name__ == "__main__":
             json.dump(vars(config), f, indent=2)
             os.system('cp %s %s' % (opt.cfg, config.log_dir))
         logger.info("Full config saved to {}".format(path))
+
+    # main function
     main(config)
